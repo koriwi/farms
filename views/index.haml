@@ -1,0 +1,22 @@
+%html
+%head
+	%title="Login User"
+%body
+	- if locals[:cause] == "expired"
+		%h3="Your session has expired"
+		%p="Please login again"
+
+	- if locals[:cause] == "first"
+		%h3="Please login"
+		%p="Please login"	
+
+	- if locals[:cause] == "nouser"
+		%h3="User not found"
+		%p="Check your username and your password"	
+
+	%form{"method" => "post"}
+		%input{"type" => "text","placeholder" => "Username", "name" => "user"}
+		%br
+		%input{"type" => "password","placeholder" => "Password", "name" => "pass"}
+		%br
+		%input{"type" => "submit","value" => "GO!"}
