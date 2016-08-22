@@ -1,0 +1,28 @@
+GEM
+  specs:
+    bson (4.1.1)
+    digest (0.0.1)
+    haml (4.0.7)
+      tilt
+    mongo (2.3.0)
+      bson (~> 4.1)
+    rack (1.6.4)
+    rack-protection (1.5.3)
+      rack
+    sinatra (1.4.7)
+      rack (~> 1.5)
+      rack-protection (~> 1.4)
+      tilt (>= 1.3, < 3)
+    tilt (2.0.5)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  digest
+  haml
+  mongo
+  sinatra
+
+BUNDLED WITH
+   1.11.2
