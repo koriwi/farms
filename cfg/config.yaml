@@ -1,0 +1,9 @@
+register:
+  password: 6
+  username: 4
+
+logging:
+  logfile: "./log/std.log"
+
+security:
+  salt: "dontlookasshole"
