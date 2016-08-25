@@ -3,4 +3,4 @@ gem 'sinatra'
 gem 'mongo'
 gem 'haml'
 gem 'digest'
-
+gem 'rerun'

@@ -1,4 +1,5 @@
 GEM
+  remote: https://rubygems.org/
   specs:
     bson (4.1.1)
     digest (0.0.1)
@@ -25,4 +26,4 @@ DEPENDENCIES
   sinatra
 
 BUNDLED WITH
-   1.11.2
+   1.12.5
