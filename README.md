@@ -1,5 +1,4 @@
-# Sinatra Authentication Template
-
+# Fuckin Awesome REST Management Server
 ## Installation
 
 ```bash
