@@ -7,7 +7,7 @@ require 'digest'
 require 'logger'
 
 #init mongo
-client = Mongo::Client.new('mongodb://127.0.0.1:27017/sinatra')
+client = Mongo::Client.new('mongodb://127.0.0.1:27017/farms')
 db = client.database
 collection = client[:users]
 
@@ -47,6 +47,10 @@ status_codes = {
 	bad: {
 		status: 400,
 		message: "bad request"
+	},
+	reg_succ: {
+		status: 201,
+		message: "user registered"
 	}
 }
 
@@ -94,6 +98,7 @@ post "/register" do
 			"session_key" => "",
 			"expiry_time" => ""
 		})
+		status_codes[:reg_succ].to_json.to_s
 	rescue
 		logger.warn "register broke!"
 		halt 400, status_codes[:bad].to_json.to_s
