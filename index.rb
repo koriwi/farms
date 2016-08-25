@@ -95,7 +95,6 @@ post "/register" do
 			"expiry_time" => ""
 		})
 	rescue
-		puts "FUCK YOU"
 		logger.warn "register broke!"
 		halt 400, status_codes[:bad].to_json.to_s
 	end
