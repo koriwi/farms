@@ -103,5 +103,8 @@ post "/register" do
 		logger.warn "register broke!"
 		halt 400, status_codes[:bad].to_json.to_s
 	end
+end
 
+post "/test" do
+	"TEST123 #{params['message']}"
 end
