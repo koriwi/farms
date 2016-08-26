@@ -55,12 +55,13 @@ status_codes = {
 }
 
 before do
+
 	return if(request.path_info == "/login")
 	return if(request.path_info == "/register")
 
-	halt 401, status_codes[:s401].to_json.to_s if(params["session_key"] == nil)
+	halt 401, status_codes[:s401].to_json.to_s if(env["HTTP_SESSION_KEY"] == nil)
 	
-	r = collection.find({"session_key" => params["session_key"]})
+	r = collection.find({"session_key" => env["HTTP_SESSION_KEY"]})
 	halt 401, status_codes[:session_error].to_json.to_s if(r.count == 0)
 
 	exTime = Time.parse(r.first["expiry_time"])
@@ -103,6 +104,10 @@ post "/register" do
 		logger.warn "register broke!"
 		halt 400, status_codes[:bad].to_json.to_s
 	end
+end
+
+get "/test" do
+	"LELELELEL"
 end
 
 post "/test" do
