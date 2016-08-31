@@ -106,6 +106,10 @@ post "/register" do
 	end
 end
 
+
+
+##### testing purpose ######
+
 get "/test" do
 	"LELELELEL"
 end
@@ -113,3 +117,5 @@ end
 post "/test" do
 	"TEST123 #{params['message']}"
 end
+
+##### testing purpose ######

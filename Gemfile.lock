@@ -3,13 +3,27 @@ GEM
   specs:
     bson (4.1.1)
     digest (0.0.1)
-    haml (4.0.7)
-      tilt
+    ffi (1.9.14)
+    listen (3.1.5)
+      rb-fsevent (~> 0.9, >= 0.9.4)
+      rb-inotify (~> 0.9, >= 0.9.7)
+      ruby_dep (~> 1.2)
+    little-plugger (1.1.4)
+    logging (2.1.0)
+      little-plugger (~> 1.1)
+      multi_json (~> 1.10)
     mongo (2.3.0)
       bson (~> 4.1)
+    multi_json (1.12.1)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
+    rb-fsevent (0.9.7)
+    rb-inotify (0.9.7)
+      ffi (>= 0.5.0)
+    rerun (0.11.0)
+      listen (~> 3.0)
+    ruby_dep (1.4.0)
     sinatra (1.4.7)
       rack (~> 1.5)
       rack-protection (~> 1.4)
@@ -21,8 +35,9 @@ PLATFORMS
 
 DEPENDENCIES
   digest
-  haml
+  logging
   mongo
+  rerun
   sinatra
 
 BUNDLED WITH
