@@ -5,11 +5,12 @@ require 'yaml'
 require 'json'
 require 'digest'
 require 'logger'
-asd
+
 #init mongo
 client = Mongo::Client.new('mongodb://127.0.0.1:27017/farms')
 db = client.database
-collection = client[:users]
+users = client[:users]
+servers = client[:servers]
 
 #load config file
 config = YAML::load_file("./cfg/config.yaml")
@@ -61,7 +62,7 @@ before do
 
 	halt 401, status_codes[:s401].to_json.to_s if(env["HTTP_SESSION_KEY"] == nil)
 	
-	r = collection.find({"session_key" => env["HTTP_SESSION_KEY"]})
+	r = users.find({"session_key" => env["HTTP_SESSION_KEY"]})
 	halt 401, status_codes[:session_error].to_json.to_s if(r.count == 0)
 
 	exTime = Time.parse(r.first["expiry_time"])
@@ -72,13 +73,13 @@ end
 post "/login" do
 	#lookup credentials in the database
 	salted_pw = Digest::SHA256.hexdigest(params["password"]+config["security"]["salt"]).to_s
-	r = collection.find({"username" => params["username"], "password" => salted_pw})
+	r = users.find({"username" => params["username"], "password" => salted_pw})
 
 	halt 401, status_codes[:nouser].to_json.to_s if(r.count == 0)
 
 	#generate sessionkey	
 	session_key = Digest::SHA256.hexdigest(config["security"]["salt"]+Time.now.to_s).to_s
-	collection.update_one({"username" => params["username"]},{"$set" => {"session_key" => session_key,"expiry_time" => (Time.now + 24*60*60).to_s}})
+	users.update_one({"username" => params["username"]},{"$set" => {"session_key" => session_key,"expiry_time" => (Time.now + 24*60*60).to_s}})
 	session_key
 end
 
@@ -89,11 +90,11 @@ post "/register" do
 		halt 400, status_codes[:bad].to_json.to_s if(params["username"].to_s.length < config["register"]["username"].to_i)
 		halt 400, status_codes[:bad].to_json.to_s if(params["password"].to_s.length < config["register"]["password"].to_i)
 
-		r = collection.find({"username" => params["username"]})
+		r = users.find({"username" => params["username"]})
 		halt 401, status_codes[:user_exists].to_json.to_s if(r.count > 0)
 
 		salted_pw = Digest::SHA256.hexdigest(params["password"]+config["security"]["salt"]).to_s
-		collection.insert_one({
+		users.insert_one({
 			"username" => params["username"],
 			"password" => salted_pw,
 			"session_key" => "",
@@ -106,7 +107,11 @@ post "/register" do
 	end
 end
 
-
+post "/createserver"
+	#check privilege
+	#sanitycheck
+	servers.insert_one({})
+end
 
 ##### testing purpose ######
 
